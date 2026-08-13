@@ -1,65 +1,65 @@
 # QA Delivery Roadmap
 
-Roadmap de entregas da QA, com visualização em Gantt. Editável direto pela página — sem tocar em código, sem planilha manual no Figma, sem arquivo local. Os dados ficam versionados neste repositório (`data.json`) e a página é publicada via GitHub Pages.
+QA delivery roadmap with a Gantt-style timeline. Editable directly on the page — no touching code, no manual Figma boxes, no local file. Data is versioned in this repository (`data.json`) and the page is published via GitHub Pages.
 
-## O que este projeto substitui
+## What this project replaces
 
-Antes, o roadmap era montado manualmente no Figma: cada entrega era uma caixa clonada à mão, com texto, datas, link do Teams e avatar digitados dentro. Aqui, cada entrega é um registro em `data.json`; a página (`index.html`) lê esses registros e desenha a timeline automaticamente — posição, largura e cor da barra são calculadas a partir da data de início/fim e da categoria.
+Previously, the roadmap was assembled by hand in Figma: each delivery was a manually cloned box, with text, dates, Teams link, and avatar typed inside. Here, each delivery is a record in `data.json`; the page (`index.html`) reads those records and draws the timeline automatically — bar position, width, and color are calculated from the start/end date and category.
 
-## Estrutura do repositório
+## Repository structure
 
-| Arquivo | Função |
+| File | Purpose |
 |---|---|
-| `index.html` | A página do roadmap (timeline + painel de edição). Não precisa editar para uso normal. |
-| `data.json` | Categorias e entregas — a fonte de dados real. Pode ser editada pela página ou direto no GitHub. |
-| `tutorial.html` | Tutorial ilustrado, passo a passo, para gerar o token do GitHub usado ao salvar. |
+| `index.html` | The roadmap page (timeline + edit panel). No need to edit it for normal use. |
+| `data.json` | Categories and deliveries — the actual data source. Can be edited from the page or directly on GitHub. |
+| `tutorial.html` | Illustrated, step-by-step tutorial for generating the GitHub token used when saving. |
 
-## Como publicar (uma vez)
+## How to publish (one-time setup)
 
-1. Repositório precisa ser **público** (GitHub Pages grátis exige isso, a menos que sua organização tenha plano com Pages privado).
-2. `index.html` e `data.json` devem estar na **raiz** do repositório.
-3. **Settings → Pages** → Source: **Deploy from a branch** → branch `main`, pasta `/ (root)` → **Save**.
-4. Aguarde ~1 minuto. O site fica em `https://SEU_USUARIO.github.io/NOME_DO_REPOSITORIO/`.
+1. The repository needs to be **public** (free GitHub Pages requires this, unless your organization has a plan with private Pages).
+2. `index.html` and `data.json` must be in the **root** of the repository.
+3. **Settings → Pages** → Source: **Deploy from a branch** → branch `main`, folder `/ (root)` → **Save**.
+4. Wait ~1 minute. The site will be at `https://YOUR_USERNAME.github.io/REPOSITORY_NAME/`.
 
-A página detecta automaticamente o usuário/repositório pela própria URL — não é necessário editar nada no código para isso funcionar.
+The page automatically detects the owner/repository from its own URL — no code changes are needed for this to work.
 
-## Como visualizar
+## How to view
 
-Basta abrir o link do GitHub Pages. O roadmap carrega os dados mais recentes de `data.json` automaticamente, para qualquer pessoa com o link — sem login e sem instalar nada.
+Just open the GitHub Pages link. The roadmap loads the latest data from `data.json` automatically, for anyone with the link — no login, nothing to install.
 
-## Como editar
+## How to edit
 
-1. Abra o link do GitHub Pages. No topo da página já tem um botão **🔄 Atualizar** para buscar a versão mais recente sem precisar abrir o painel de edição.
-2. Clique **✏️ Editar roadmap**. O painel tem três abas: **Entregas**, **Categorias** e **Sincronização**. As abas Entregas e Categorias já têm o botão **💾 Salvar no GitHub** no topo — não é preciso ir até a aba Sincronização só para salvar.
+1. Open the GitHub Pages link. There's already a **🔄 Refresh** button at the top of the page to fetch the latest version without opening the edit panel.
+2. Click **✏️ Edit roadmap**. The panel has three tabs: **Deliveries**, **Categories**, and **Sync**. The Deliveries and Categories tabs already have a **💾 Save to GitHub** button at the top — you don't need to go to the Sync tab just to save.
 
-### Aba Entregas
-- **+ Nova entrega** para adicionar, ou ✏️/🗑️ em um item da lista para editar/excluir.
-- **Data de fim é opcional.** Se você preencher só a data de início e deixar o fim em branco, a página completa automaticamente com **+1 semana** a partir do início (o campo já vem preenchido sozinho quando você sai do campo de início, mas pode editar livremente).
+### Deliveries tab
+- **+ New delivery** to add one, or ✏️/🗑️ on a list item to edit/delete it.
+- **End date is optional.** If you only fill in the start date and leave the end blank, the page automatically fills it in with **+1 week** from the start (the field pre-fills itself when you leave the start field, but you can edit it freely).
 
-### Aba Categorias
-- **+ Nova categoria**: escolha nome, cor de fundo e cor do texto (com pré-visualização em tempo real). A categoria passa a existir tanto na legenda quanto na lista de opções ao criar/editar uma entrega. O id interno é **numérico e sequencial** (1, 2, 3...) e nunca muda — mesmo que o nome seja alterado depois.
-- ✏️ em uma categoria existente: renomear ou trocar as cores. Renomear é seguro — como o id não depende do nome, nenhuma entrega perde a categoria por causa de uma renomeação.
-- 🗑️ em uma categoria: se nenhuma entrega usa essa categoria, ela é removida direto. Se alguma entrega usa, a página pede para escolher outra categoria de destino antes de excluir — as entregas afetadas são movidas automaticamente, nada fica "solto".
-- Não é possível excluir a última categoria restante (é preciso ter pelo menos uma).
+### Categories tab
+- **+ New category**: choose a name, background color, and text color (with a live preview). The category then becomes available both in the legend and in the dropdown when creating/editing a delivery. The internal id is **numeric and sequential** (1, 2, 3...) and never changes — even if the name is changed later.
+- ✏️ on an existing category: rename it or change its colors. Renaming is safe — since the id doesn't depend on the name, no delivery ever loses its category because of a rename.
+- 🗑️ on a category: if no delivery uses it, it's removed right away. If some delivery does use it, the page asks you to pick a target category before deleting — affected deliveries are moved automatically, nothing is left "orphaned".
+- You can't delete the last remaining category (at least one must exist).
 
-### Aba Sincronização
-1. Clique **💾 Salvar no GitHub**. Na primeira vez, vai pedir um token — veja o tutorial ilustrado em [`tutorial.html`](tutorial.html) (passo a passo com prints) ou o resumo abaixo:
+### Sync tab
+1. Click **💾 Save to GitHub**. The first time, it will ask for a token — see the illustrated tutorial in [`tutorial.html`](tutorial.html) (step-by-step with screenshots) or the summary below:
    - GitHub → **Settings → Developer settings → Fine-grained tokens → Generate new token**
-   - **Expiration**: defina até o **final de dezembro** — o token tem validade máxima de 366 dias, então marque um lembrete para renovar antes de vencer.
-   - Repository access: **Only select repositories** → escolha este repositório
+   - **Expiration**: set it to the **end of December** — tokens have a maximum lifetime of 366 days, so set a reminder to renew before it expires.
+   - Repository access: **Only select repositories** → choose this repository
    - Permissions → **Contents: Read and write**
-   - Gere e cole o token na página. Ele fica salvo só no seu navegador, nunca é commitado.
-2. Depois de conectado, **Salvar no GitHub** grava entregas e categorias juntas (um commit real) e **🔄 Atualizar** busca a versão mais recente.
+   - Generate it and paste it into the page. It's saved only in your browser, never committed.
+2. Once connected, **Save to GitHub** writes deliveries and categories together (a real commit) and **🔄 Refresh** fetches the latest version.
 
-Cada pessoa que for editar conecta o próprio token, uma vez, no próprio navegador. Quem só visualiza não precisa de nada.
+Each person who wants to edit connects their own token, once, in their own browser. Anyone who's just viewing needs nothing at all.
 
-> **Se o repositório está na sua conta pessoal** (não numa organização), colegas que sejam apenas colaboradores — não donos — vão notar que o repositório não aparece em "Resource owner" ao criar um token fine-grained. Isso é uma limitação conhecida do GitHub para colaboradores externos, não um erro de configuração. O `tutorial.html` explica a alternativa: gerar um **token clássico** com escopo `repo`, que funciona igual dentro do roadmap.
+> **If the repository lives under your personal account** (not an organization), teammates who are only collaborators — not owners — will notice the repository doesn't show up under "Resource owner" when creating a fine-grained token. This is a known GitHub limitation for outside collaborators, not a configuration mistake. `tutorial.html` explains the workaround: generate a **classic token** with the `repo` scope, which works the same way inside the roadmap.
 
-## Conflitos de edição simultânea
+## Simultaneous edit conflicts
 
-Se duas pessoas salvarem quase ao mesmo tempo, a segunda tentativa é rejeitada pela API do GitHub (em vez de sobrescrever silenciosamente). A página avisa para clicar em **Atualizar**, refazer a mudança e salvar novamente.
+If two people save at nearly the same time, the second attempt is rejected by the GitHub API (instead of silently overwriting). The page tells you to click **Refresh**, redo your change, and save again.
 
-## Formato de `data.json`
+## `data.json` format
 
 ```json
 {
@@ -69,7 +69,7 @@ Se duas pessoas salvarem quase ao mesmo tempo, a segunda tentativa é rejeitada 
   "deliveries": [
     {
       "id": "d1",
-      "name": "Nome da entrega",
+      "name": "Delivery name",
       "categoryId": "1",
       "categoryName": "Cyber Threat Intelligence",
       "start": "2025-11-10",
@@ -82,20 +82,20 @@ Se duas pessoas salvarem quase ao mesmo tempo, a segunda tentativa é rejeitada 
 }
 ```
 
-- `id` da categoria é **numérico e permanente** — nunca é recalculado a partir do nome, então renomear uma categoria pela aba "Categorias" nunca desconecta uma entrega da sua categoria.
-- `categoryId` (na entrega) é a referência real, usada para calcular cor e agrupamento. `categoryName` é apenas uma cópia legível do nome, recalculada automaticamente sempre que a categoria é salva — não precisa (e não deve) ser editada manualmente separada do `categoryId`.
-- `end` é opcional: se ausente ou vazio, a página assume `start + 7 dias` ao salvar.
-- `status`: qualquer combinação de `"published"` (👍 Publicação em #update-deliveries) e `"homolog"` (🌗 Homologação fora do lifecycle).
-- `owners`: iniciais do(s) responsável(is) pela QA; cada conjunto de iniciais recebe uma cor automática, consistente em todas as barras.
+- A category's `id` is **numeric and permanent** — it's never recalculated from the name, so renaming a category from the "Categories" tab never disconnects a delivery from its category.
+- `categoryId` (on a delivery) is the real reference, used to compute color and grouping. `categoryName` is just a human-readable copy of the name, automatically recalculated whenever the category is saved — it doesn't need to (and shouldn't) be edited manually separately from `categoryId`.
+- `end` is optional: if missing or empty, the page assumes `start + 7 days` when saving.
+- `status`: any combination of `"published"` (👍 Published to #update-deliveries) and `"homolog"` (🌗 Homologation outside the lifecycle).
+- `owners`: initials of the QA owner(s); each set of initials gets an automatic color, consistent across all bars.
 
-O arquivo é sempre salvo com as entregas ordenadas por data de início — isso mantém o histórico de commits legível e reduz conflitos de merge. Formatos antigos (categoria por nome/slug, sem `categoryId`/`categoryName`) ainda são lidos normalmente — a página migra sozinha para ids numéricos na primeira vez que carregar.
+The file is always saved with deliveries sorted by start date — this keeps the commit history readable and reduces merge conflicts. Older formats (category by name/slug, without `categoryId`/`categoryName`) are still read normally — the page migrates itself to numeric ids the first time it loads.
 
-## Backup manual
+## Manual backup
 
-O botão **⬇ Baixar backup local (.json)** no painel de edição salva uma cópia de segurança do estado atual, independente do GitHub.
+The **⬇ Download local backup (.json)** button in the edit panel saves a safety copy of the current state, independent of GitHub.
 
-## Limitações conhecidas
+## Known limitations
 
-- Sem autenticação de usuários — qualquer pessoa com um token de escrita no repositório pode editar. Adequado para um time interno de confiança; não é um controle de acesso granular.
-- Sem histórico de "quem editou o quê" além do que o próprio Git já registra nos commits.
-- O site publicado pode levar até ~1 minuto para refletir um novo commit.
+- No user authentication — anyone with a write token for the repository can edit. Suitable for a trusted internal team; this is not a granular access control system.
+- No "who edited what" history beyond what Git itself already records in commits.
+- The published site can take up to ~1 minute to reflect a new commit.

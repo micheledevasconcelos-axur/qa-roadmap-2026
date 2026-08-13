@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Como gerar o token do GitHub — QA Delivery Roadmap</title>
+<title>How to generate the GitHub token — QA Delivery Roadmap</title>
 <style>
   :root{ --ink:#1F2430; --sub:#5B6472; --border:#D7E3F0; --page:#F3F6FB; --gh-dark:#24292F; --gh-green:#2DA44E; --gh-blue:#0969DA; --warn:#B54708; --warn-bg:#FFF6E5; --warn-border:#F5C87A; }
   *{box-sizing:border-box;}
@@ -28,22 +28,22 @@
 <body>
 <div class="wrap">
 
-  <h1>Como gerar o token do GitHub</h1>
-  <p class="subtitle">Passo a passo para criar um token que permite ao roadmap salvar diretamente no repositório.</p>
+  <h1>How to generate the GitHub token</h1>
+  <p class="subtitle">Step-by-step guide to creating a token that lets the roadmap save directly to the repository.</p>
 
-  <a class="cta" href="https://github.com/settings/personal-access-tokens/new" target="_blank">🔗 Abrir a página de criação do token no GitHub</a>
-  <p class="subtitle" style="margin-top:-18px">Esse link já abre direto na tela de criação do token — as Etapas 1 e 2 abaixo (chegar até essa tela pelo menu) já ficam resolvidas automaticamente. Depois de clicar, <b>pule direto para a Etapa 3</b>.</p>
+  <a class="cta" href="https://github.com/settings/personal-access-tokens/new" target="_blank">🔗 Open the token creation page on GitHub</a>
+  <p class="subtitle" style="margin-top:-18px">This link already opens straight into the token creation screen — Steps 1 and 2 below (getting there via the menu) are already taken care of. After clicking, <b>skip straight to Step 3</b>.</p>
 
   <div class="warn-box">
-    ⚠️ <b>Validade do token:</b> defina o campo <b>Expiration</b> até o final de dezembro (ex: 31/12/2026). Quando o token vencer, o botão "Salvar no GitHub" vai parar de funcionar até alguém gerar um novo e reconectar — <b>marque um lembrete para renovar antes do vencimento</b>.
+    ⚠️ <b>Token expiration:</b> set the <b>Expiration</b> field to the end of December (e.g., 12/31/2026). When the token expires, the "Save to GitHub" button will stop working until someone generates a new one and reconnects — <b>set a reminder to renew it before it expires</b>.
   </div>
 
   <!-- STEP 1 -->
   <div class="step">
     <div class="step-num">1</div>
     <div class="step-body">
-      <h2>Acesse as configurações de desenvolvedor <span style="font-size:11px;font-weight:600;color:var(--sub);background:#EDF2F9;padding:2px 8px;border-radius:10px;">pode pular se usou o link acima</span></h2>
-      <p>No canto superior direito de qualquer página do GitHub, clique na sua foto de perfil → <b>Settings</b>. No menu à esquerda, role até o final e clique em <b>Developer settings</b>.</p>
+      <h2>Go to Developer settings <span style="font-size:11px;font-weight:600;color:var(--sub);background:#EDF2F9;padding:2px 8px;border-radius:10px;">skip if you used the link above</span></h2>
+      <p>In the top-right corner of any GitHub page, click your profile picture → <b>Settings</b>. In the left-hand menu, scroll to the bottom and click <b>Developer settings</b>.</p>
       <svg class="mock" viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="130" fill="#ffffff"/>
         <rect width="700" height="46" fill="#24292F"/>
@@ -56,7 +56,7 @@
         <rect x="570" y="97" width="100" height="10" rx="2" fill="#E3EAF3"/>
         <text x="570" y="90" font-family="Segoe UI" font-size="10" fill="#ffffff">Settings</text>
       </svg>
-      <div class="mock-note">Ilustração simplificada do menu de perfil do GitHub — o layout real pode variar levemente.</div>
+      <div class="mock-note">Simplified illustration of GitHub's profile menu — the real layout may vary slightly.</div>
     </div>
   </div>
 
@@ -64,8 +64,8 @@
   <div class="step">
     <div class="step-num">2</div>
     <div class="step-body">
-      <h2>Abra "Personal access tokens → Fine-grained tokens" <span style="font-size:11px;font-weight:600;color:var(--sub);background:#EDF2F9;padding:2px 8px;border-radius:10px;">pode pular se usou o link acima</span></h2>
-      <p>Dentro de <b>Developer settings</b>, no menu lateral, clique em <b>Personal access tokens</b> e depois em <b>Fine-grained tokens</b>. Clique no botão verde <b>Generate new token</b>.</p>
+      <h2>Open "Personal access tokens → Fine-grained tokens" <span style="font-size:11px;font-weight:600;color:var(--sub);background:#EDF2F9;padding:2px 8px;border-radius:10px;">skip if you used the link above</span></h2>
+      <p>Inside <b>Developer settings</b>, in the side menu, click <b>Personal access tokens</b> and then <b>Fine-grained tokens</b>. Click the green <b>Generate new token</b> button.</p>
       <svg class="mock" viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="160" fill="#ffffff"/>
         <rect width="180" height="160" fill="#F6F8FA"/>
@@ -77,7 +77,7 @@
         <rect x="520" y="20" width="160" height="34" rx="6" fill="#2DA44E"/>
         <text x="540" y="42" font-family="Segoe UI" font-size="12" fill="#ffffff">Generate new token</text>
       </svg>
-      <div class="mock-note">"Fine-grained tokens" (destacado em azul) é a opção recomendada — mais segura que os tokens clássicos.</div>
+      <div class="mock-note">"Fine-grained tokens" (highlighted in blue) is the recommended option — safer than classic tokens.</div>
     </div>
   </div>
 
@@ -85,8 +85,8 @@
   <div class="step">
     <div class="step-num">3</div>
     <div class="step-body">
-      <h2>Dê um nome e defina a validade até dezembro</h2>
-      <p>Em <b>Token name</b>, coloque algo como <code>QA Roadmap</code>. Em <b>Expiration</b>, escolha uma data personalizada e selecione <b>31/12</b> deste ano. Isso evita um token "eterno" circulando, mas exige renovação — anote no calendário do time.</p>
+      <h2>Give it a name and set the expiration to December</h2>
+      <p>In <b>Token name</b>, enter something like <code>QA Roadmap</code>. In <b>Expiration</b>, choose a custom date and pick <b>Dec 31</b> of this year. This avoids an "eternal" token floating around, but it does require renewal — add it to the team's calendar.</p>
       <svg class="mock" viewBox="0 0 700 150" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="150" fill="#ffffff"/>
         <text x="24" y="26" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#24292F">Token name</text>
@@ -94,9 +94,9 @@
         <text x="32" y="54" font-family="Segoe UI" font-size="12" fill="#57606A">QA Roadmap</text>
         <text x="24" y="90" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#24292F">Expiration</text>
         <rect x="24" y="98" width="180" height="30" rx="5" fill="#ffffff" stroke="#D7E3F0"/>
-        <text x="32" y="118" font-family="Segoe UI" font-size="12" fill="#57606A">31/12/2026 ▾</text>
+        <text x="32" y="118" font-family="Segoe UI" font-size="12" fill="#57606A">12/31/2026 ▾</text>
         <rect x="214" y="98" width="140" height="30" rx="5" fill="#FFF6E5" stroke="#F5C87A"/>
-        <text x="224" y="118" font-family="Segoe UI" font-size="11" fill="#B54708">⚠ lembrar renovar</text>
+        <text x="224" y="118" font-family="Segoe UI" font-size="11" fill="#B54708">⚠ remember to renew</text>
       </svg>
     </div>
   </div>
@@ -105,8 +105,8 @@
   <div class="step">
     <div class="step-num">4</div>
     <div class="step-body">
-      <h2>Limite o acesso a este repositório</h2>
-      <p>Em <b>Repository access</b>, marque <b>Only select repositories</b> e escolha o repositório do roadmap. Assim o token não enxerga nenhum outro repositório seu.</p>
+      <h2>Limit access to this repository</h2>
+      <p>Under <b>Repository access</b>, select <b>Only select repositories</b> and choose the roadmap's repository. This way the token can't see any other repository of yours.</p>
       <svg class="mock" viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="130" fill="#ffffff"/>
         <circle cx="30" cy="30" r="7" fill="#ffffff" stroke="#8B98A5" stroke-width="2"/>
@@ -124,8 +124,8 @@
   <div class="step">
     <div class="step-num">5</div>
     <div class="step-body">
-      <h2>Ative a permissão "Contents: Read and write"</h2>
-      <p>Role até <b>Permissions → Repository permissions</b>. Procure a linha <b>Contents</b> e mude o menu de "No access" para <b>Read and write</b>. Essa é a única permissão obrigatória — as demais podem ficar como estão.</p>
+      <h2>Turn on the "Contents: Read and write" permission</h2>
+      <p>Scroll down to <b>Permissions → Repository permissions</b>. Find the <b>Contents</b> row and change the dropdown from "No access" to <b>Read and write</b>. This is the only permission required — everything else can stay as-is.</p>
       <svg class="mock" viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="130" fill="#ffffff"/>
         <text x="24" y="24" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#24292F">Repository permissions</text>
@@ -134,7 +134,7 @@
         <rect x="500" y="42" width="150" height="22" rx="4" fill="#DAFBE1" stroke="#2DA44E"/>
         <text x="512" y="57" font-family="Segoe UI" font-size="11" fill="#116329">Read and write ▾</text>
         <rect x="24" y="76" width="650" height="34" rx="5" fill="#ffffff" stroke="#D7E3F0"/>
-        <text x="34" y="98" font-family="Segoe UI" font-size="12" fill="#8B98A5">Metadata (padrão, sem mudança)</text>
+        <text x="34" y="98" font-family="Segoe UI" font-size="12" fill="#8B98A5">Metadata (default, no change)</text>
       </svg>
     </div>
   </div>
@@ -143,15 +143,15 @@
   <div class="step">
     <div class="step-num">6</div>
     <div class="step-body">
-      <h2>Gere e copie o token</h2>
-      <p>Role até o final e clique em <b>Generate token</b>. O token aparece <b>uma única vez</b> na tela seguinte, algo como <code>github_pat_11AB...</code>. Copie imediatamente — se sair da página sem copiar, é preciso gerar outro.</p>
+      <h2>Generate and copy the token</h2>
+      <p>Scroll to the bottom and click <b>Generate token</b>. The token appears <b>only once</b> on the next screen, something like <code>github_pat_11AB...</code>. Copy it right away — if you leave the page without copying it, you'll need to generate another one.</p>
       <svg class="mock" viewBox="0 0 700 110" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="110" fill="#ffffff"/>
         <rect x="24" y="24" width="500" height="34" rx="5" fill="#F6F8FA" stroke="#D7E3F0"/>
         <text x="34" y="46" font-family="Segoe UI" font-size="12" fill="#24292F">github_pat_11AB3XYZ...........................</text>
         <rect x="536" y="24" width="80" height="34" rx="5" fill="#0969DA"/>
         <text x="550" y="46" font-family="Segoe UI" font-size="12" fill="#ffffff">Copy</text>
-        <text x="24" y="80" font-family="Segoe UI" font-size="11" fill="#B54708">⚠ Esse token não será mostrado de novo depois que você saír desta página.</text>
+        <text x="24" y="80" font-family="Segoe UI" font-size="11" fill="#B54708">⚠ This token won't be shown again once you leave this page.</text>
       </svg>
     </div>
   </div>
@@ -160,39 +160,39 @@
   <div class="step">
     <div class="step-num">7</div>
     <div class="step-body">
-      <h2>Cole o token na página do roadmap</h2>
-      <p>Volte para o roadmap → <b>✏️ Editar roadmap</b> → aba <b>Sincronização</b> → clique em <b>Salvar no GitHub</b> (ou <b>Conectar</b>) e cole o token copiado. Ele fica salvo só nesse navegador — nunca é enviado para o repositório nem compartilhado com mais ninguém.</p>
+      <h2>Paste the token into the roadmap page</h2>
+      <p>Go back to the roadmap → <b>✏️ Edit roadmap</b> → <b>Sync</b> tab → click <b>Save to GitHub</b> (or <b>Connect</b>) and paste the copied token. It's saved only in that browser — it's never sent to the repository or shared with anyone else.</p>
     </div>
   </div>
 
   <hr class="divider">
   <div class="warn-box">
-    🔁 <b>Quando o token vencer</b> (fim de dezembro, se você seguiu o passo 3), o botão "Salvar no GitHub" vai mostrar um erro de token inválido. Basta repetir estes passos para gerar um novo token e clicar em <b>🔑 Trocar / desconectar token</b> na aba Sincronização para reconectar.
+    🔁 <b>When the token expires</b> (end of December, if you followed step 3), the "Save to GitHub" button will show an invalid-token error. Just repeat these steps to generate a new token and click <b>🔑 Switch / disconnect token</b> in the Sync tab to reconnect.
   </div>
 
   <hr class="divider">
 
-  <h1 style="font-size:19px">❓ "Meu repositório não aparece em Resource owner"</h1>
+  <h1 style="font-size:19px">❓ "My repository doesn't show up under Resource owner"</h1>
   <p style="font-size:13.5px;color:var(--ink);line-height:1.55">
-    Isso é uma <b>limitação conhecida do GitHub</b>, não um erro seu. O campo <b>Resource owner</b>, na tela de criação do token fine-grained, só lista a sua própria conta pessoal e organizações às quais você pertence. Se o repositório está na conta pessoal de outra pessoa (não numa organização) e você é apenas colaborador(a) — não dono(a) — o GitHub não oferece essa conta como opção. Tokens fine-grained simplesmente não suportam esse cenário ainda.
+    This is a <b>known GitHub limitation</b>, not something you did wrong. The <b>Resource owner</b> field, on the fine-grained token creation screen, only lists your own personal account and organizations you belong to. If the repository lives under someone else's personal account (not an organization) and you're just a collaborator — not the owner — GitHub won't offer that account as an option. Fine-grained tokens simply don't support this scenario yet.
   </p>
   <p style="font-size:13.5px;color:var(--ink);line-height:1.55">
-    A solução é usar um <b>token clássico (classic)</b> em vez de fine-grained. Funciona exatamente igual dentro do roadmap — a página não precisa de nenhum ajuste.
+    The fix is to use a <b>classic token</b> instead of a fine-grained one. It works exactly the same way inside the roadmap — the page needs no changes at all.
   </p>
 
   <div class="step">
     <div class="step-num">A</div>
     <div class="step-body">
-      <h2>Gere um token clássico</h2>
-      <p>GitHub → foto de perfil → <b>Settings → Developer settings → Personal access tokens → Tokens (classic)</b> → <b>Generate new token → Generate new token (classic)</b>.</p>
-      <a class="cta" href="https://github.com/settings/tokens/new" target="_blank">🔗 Abrir criação de token clássico</a>
+      <h2>Generate a classic token</h2>
+      <p>GitHub → profile picture → <b>Settings → Developer settings → Personal access tokens → Tokens (classic)</b> → <b>Generate new token → Generate new token (classic)</b>.</p>
+      <a class="cta" href="https://github.com/settings/tokens/new" target="_blank">🔗 Open classic token creation</a>
     </div>
   </div>
   <div class="step">
     <div class="step-num">B</div>
     <div class="step-body">
-      <h2>Nome, validade e escopo</h2>
-      <p>Dê um nome (ex: <code>QA Roadmap</code>) e defina a validade até o fim de dezembro, igual ao token fine-grained. Em <b>Select scopes</b>, marque a caixa <b>repo</b> (Full control of private repositories) — tokens clássicos não têm um escopo "só este repositório", então <code>repo</code> é o mais restrito disponível para conseguir salvar.</p>
+      <h2>Name, expiration, and scope</h2>
+      <p>Give it a name (e.g., <code>QA Roadmap</code>) and set the expiration to end of December, same as the fine-grained token. Under <b>Select scopes</b>, check the <b>repo</b> box (Full control of private repositories) — classic tokens don't have a "this repository only" scope, so <code>repo</code> is the most restrictive option available that will still let you save.</p>
       <svg class="mock" viewBox="0 0 700 90" xmlns="http://www.w3.org/2000/svg">
         <rect width="700" height="90" fill="#ffffff"/>
         <rect x="24" y="20" width="16" height="16" rx="3" fill="#0969DA"/>
@@ -204,15 +204,52 @@
   <div class="step">
     <div class="step-num">C</div>
     <div class="step-body">
-      <h2>Gere, copie e cole no roadmap</h2>
-      <p>Clique <b>Generate token</b>, copie o valor (aparece só uma vez) e cole no roadmap do mesmo jeito: <b>✏️ Editar roadmap → aba Sincronização → Salvar no GitHub</b>.</p>
+      <h2>Generate, copy, and paste into the roadmap</h2>
+      <p>Click <b>Generate token</b>, copy the value (it only appears once), and paste it into the roadmap the same way: <b>✏️ Edit roadmap → Sync tab → Save to GitHub</b>.</p>
     </div>
   </div>
   <div class="warn-box">
-    ⚠️ Um token clássico com escopo <code>repo</code> dá acesso a <b>todos</b> os repositórios privados que essa pessoa tem acesso, não só a este. É a única forma de contornar a limitação atual do GitHub para colaboradores externos — se isso for uma preocupação, considere mover o repositório para uma <b>Organização do GitHub</b> e adicionar as QAs como membros: nesse caso, o token fine-grained volta a funcionar normalmente, porque a organização passa a aparecer em Resource owner.
+    ⚠️ A classic token with the <code>repo</code> scope grants access to <b>every</b> private repository that person has access to, not just this one. It's currently the only way around GitHub's limitation for outside collaborators — if that's a concern, consider moving the repository into a <b>GitHub Organization</b> and adding the QAs as members: fine-grained tokens then work normally again, because the organization shows up under Resource owner.
   </div>
 
-  <p class="back-link"><a href="index.html">← Voltar para o roadmap</a></p>
+  <hr class="divider">
+
+  <h1 style="font-size:19px">❓ Error "Could not save to GitHub: Not Found"</h1>
+  <p style="font-size:13.5px;color:var(--ink);line-height:1.55">
+    This error (404) shows up when the token itself is valid, but the GitHub API can't find the repository <b>for that specific token</b>. The most common causes, in order of likelihood:
+  </p>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h2>Add the person as a collaborator (and have them accept the invite)</h2>
+      <p><b>Whoever owns the repository</b> should go to <b>Settings → Collaborators and teams → Add people</b>, type the teammate's GitHub username or email, and confirm.</p>
+      <svg class="mock" viewBox="0 0 700 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="700" height="110" fill="#ffffff"/>
+        <text x="24" y="26" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#24292F">Manage access</text>
+        <rect x="24" y="36" width="440" height="30" rx="5" fill="#ffffff" stroke="#D7E3F0"/>
+        <text x="32" y="56" font-family="Segoe UI" font-size="12" fill="#8B98A5">Search by username, full name or email address</text>
+        <rect x="476" y="36" width="140" height="30" rx="6" fill="#2DA44E"/>
+        <text x="500" y="56" font-family="Segoe UI" font-size="12" fill="#ffffff">Add people</text>
+      </svg>
+      <p><b>The teammate</b> gets an invite by email (or sees it at <a href="https://github.com/notifications" target="_blank">github.com/notifications</a>) and needs to click <b>Accept invitation</b>. Only after that does their token — classic or fine-grained — see the repository. Sending the invite without it being accepted is not enough.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h2>Wrong scope on a classic token (private repository)</h2>
+      <p>If the repository is private, the token needs the <b>repo</b> scope (Full control of private repositories) — <code>public_repo</code> is not enough and results in this same error. Generate a new token making sure that box is checked.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h2>Token pasted with a stray space or line break</h2>
+      <p>When copying from the GitHub screen, check that no space snuck in before/after it. Paste it again directly from the "Copy" button on the token generation screen.</p>
+    </div>
+  </div>
+
+  <p class="back-link"><a href="index.html">← Back to the roadmap</a></p>
 </div>
 </body>
 </html>

@@ -28,14 +28,25 @@ Basta abrir o link do GitHub Pages. O roadmap carrega os dados mais recentes de 
 
 ## Como editar
 
-1. Abra o link do GitHub Pages → clique **✏️ Editar entregas**.
-2. **+ Nova entrega** para adicionar, ou ✏️/🗑️ em um item da lista para editar/excluir.
-3. Clique **💾 Salvar no GitHub**. Na primeira vez, vai pedir um token:
+1. Abra o link do GitHub Pages → clique **✏️ Editar roadmap**.
+2. O painel tem três abas: **Entregas**, **Categorias** e **Sincronização**.
+
+### Aba Entregas
+- **+ Nova entrega** para adicionar, ou ✏️/🗑️ em um item da lista para editar/excluir.
+
+### Aba Categorias
+- **+ Nova categoria**: escolha nome, cor de fundo e cor do texto (com pré-visualização em tempo real). A categoria passa a existir tanto na legenda quanto na lista de opções ao criar/editar uma entrega.
+- ✏️ em uma categoria existente: renomear ou trocar as cores. Renomear é seguro — a categoria tem um identificador interno fixo, então nenhuma entrega perde a categoria por causa de uma renomeação.
+- 🗑️ em uma categoria: se nenhuma entrega usa essa categoria, ela é removida direto. Se alguma entrega usa, a página pede para escolher outra categoria de destino antes de excluir — as entregas afetadas são movidas automaticamente, nada fica "solto".
+- Não é possível excluir a última categoria restante (é preciso ter pelo menos uma).
+
+### Aba Sincronização
+1. Clique **💾 Salvar no GitHub**. Na primeira vez, vai pedir um token:
    - GitHub → **Settings → Developer settings → Fine-grained tokens → Generate new token**
    - Repository access: **Only select repositories** → escolha este repositório
    - Permissions → **Contents: Read and write**
    - Gere e cole o token na página. Ele fica salvo só no seu navegador, nunca é commitado.
-4. Depois de conectado, **Salvar no GitHub** grava direto (um commit real) e **🔄 Atualizar** busca a versão mais recente.
+2. Depois de conectado, **Salvar no GitHub** grava entregas e categorias juntas (um commit real) e **🔄 Atualizar** busca a versão mais recente.
 
 Cada pessoa que for editar conecta o próprio token, uma vez, no próprio navegador. Quem só visualiza não precisa de nada.
 
@@ -47,22 +58,29 @@ Se duas pessoas salvarem quase ao mesmo tempo, a segunda tentativa é rejeitada 
 
 ```json
 {
-  "id": "d1",
-  "name": "Nome da entrega",
-  "category": "Cyber Threat Intelligence",
-  "start": "2025-11-10",
-  "end": "2025-11-21",
-  "link": "https://teams.microsoft.com/...",
-  "status": ["published"],
-  "owners": ["MC"]
+  "categories": [
+    { "id": "cyber-threat-intelligence", "name": "Cyber Threat Intelligence", "bg": "#BFE0F7", "fg": "#1B4965" }
+  ],
+  "deliveries": [
+    {
+      "id": "d1",
+      "name": "Nome da entrega",
+      "category": "cyber-threat-intelligence",
+      "start": "2025-11-10",
+      "end": "2025-11-21",
+      "link": "https://teams.microsoft.com/...",
+      "status": ["published"],
+      "owners": ["MC"]
+    }
+  ]
 }
 ```
 
-- `category`: precisa ser uma das chaves definidas em `CATEGORIES` dentro de `index.html` (mesmas cores da legenda).
+- `category` (na entrega) referencia o **`id`** de uma categoria — não o nome. Isso é o que permite renomear uma categoria pela aba "Categorias" sem quebrar nenhuma entrega.
 - `status`: qualquer combinação de `"published"` (👍 Publicação em #update-deliveries) e `"homolog"` (🌗 Homologação fora do lifecycle).
 - `owners`: iniciais do(s) responsável(is) pela QA; cada conjunto de iniciais recebe uma cor automática, consistente em todas as barras.
 
-O arquivo é sempre salvo ordenado por data de início — isso mantém o histórico de commits legível e reduz conflitos de merge.
+O arquivo é sempre salvo com as entregas ordenadas por data de início — isso mantém o histórico de commits legível e reduz conflitos de merge. Um `data.json` no formato antigo (lista simples de entregas, categoria por nome) ainda é lido normalmente — a página migra sozinha para o formato novo na primeira vez que carregar.
 
 ## Backup manual
 

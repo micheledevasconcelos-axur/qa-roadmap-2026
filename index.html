@@ -93,9 +93,16 @@
   .divider{ border:none; border-top:1px solid var(--border); margin:18px 0; }
   .top-actions-row{ display:flex; gap:8px; margin-bottom:14px; }
   .cat-preview{ display:inline-flex; align-items:center; padding:6px 14px; border-radius:20px; font-size:12.5px; font-weight:600; margin-bottom:14px; }
+
+  .toast{ position:fixed; top:18px; right:18px; background:#1F2430; color:#fff; padding:13px 20px; border-radius:9px; font-size:13.5px; font-weight:600; box-shadow:0 6px 18px rgba(0,0,0,0.22); z-index:100; opacity:0; transform:translateY(-8px); transition:opacity .25s, transform .25s; pointer-events:none; max-width:320px; }
+  .toast.show{ opacity:1; transform:translateY(0); }
+  .toast.success{ background:#1F7A3D; }
+  .toast.error{ background:#B42318; }
 </style>
 </head>
 <body>
+
+<div class="toast" id="toast"></div>
 
 <div class="topbar">
   <div>
@@ -691,6 +698,14 @@ function base64ToUtf8(b64){
   for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
   return new TextDecoder().decode(bytes);
 }
+let toastTimer = null;
+function showToast(msg, type){
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "toast show" + (type ? " " + type : "");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> el.classList.remove("show"), 4000);
+}
 function renderGhStatus(msg){
   const repoLabel = `${GITHUB_OWNER}/${GITHUB_REPO}`;
   const tokenLabel = ghToken ? "🔑 token conectado" : "👀 modo somente leitura (sem token)";
@@ -726,7 +741,7 @@ async function loadFromGitHub(silent){
   }
 }
 async function saveToGitHub(){
-  if(!ghToken){ showTab("sync"); openTokenPanel(); return; }
+  if(!ghToken){ showTab("sync"); openTokenPanel(); showToast("Conecte um token para salvar no GitHub.", "error"); return; }
   try{
     const body = {
       message: "Atualiza roadmap (" + new Date().toLocaleString("pt-BR") + ")",
@@ -752,6 +767,7 @@ async function saveToGitHub(){
     }
     currentSha = json.content.sha;
     renderGhStatus("Salvo no GitHub agora · pode levar até 1 min para o site publicado atualizar.");
+    showToast("✅ Salvo no GitHub com sucesso!", "success");
   }catch(e){
     alert("Não foi possível salvar no GitHub: " + e.message);
   }

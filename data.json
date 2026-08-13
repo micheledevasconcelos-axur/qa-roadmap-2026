@@ -1,71 +1,72 @@
 {
   "categories": [
     {
-      "id": "cyber-threat-intelligence",
+      "id": "1",
       "name": "Cyber Threat Intelligence",
       "bg": "#BFE0F7",
       "fg": "#1B4965"
     },
     {
-      "id": "data-leakage",
+      "id": "2",
       "name": "Data Leakage",
       "bg": "#6E6E6E",
       "fg": "#FFFFFF"
     },
     {
-      "id": "digital-fraud-online-piracy",
+      "id": "3",
       "name": "Brand Protection",
-      "bg": "#d6d6d6",
+      "bg": "#D6D6D6",
       "fg": "#333333"
     },
     {
-      "id": "executives-vips",
+      "id": "4",
       "name": "Executives & VIPs",
       "bg": "#F6D2A8",
       "fg": "#7A4A12"
     },
     {
-      "id": "new-revenue",
+      "id": "5",
       "name": "New Revenue",
       "bg": "#D5C7F0",
       "fg": "#4B2E83"
     },
     {
-      "id": "stage-scalability",
+      "id": "6",
       "name": "Stage & Scalability",
       "bg": "#C6EAC0",
       "fg": "#2C5E27"
     },
     {
-      "id": "takedown",
+      "id": "7",
       "name": "Takedown",
       "bg": "#B9F0E8",
       "fg": "#146B62"
     },
     {
-      "id": "threat-hunting-investigations",
+      "id": "8",
       "name": "Threat Hunting & Investigations",
       "bg": "#F5C6E0",
       "fg": "#7A2C57"
     },
     {
-      "id": "deprecated-fraud-intelligence",
+      "id": "9",
       "name": "Signal Lake",
-      "bg": "#f2b6aa",
-      "fg": "#7a2e1f"
+      "bg": "#F2B6AA",
+      "fg": "#7A2E1F"
     },
     {
-      "id": "automacao",
+      "id": "10",
       "name": "Other Projects",
-      "bg": "#d58400",
-      "fg": "#ffffff"
+      "bg": "#D58400",
+      "fg": "#FFFFFF"
     }
   ],
   "deliveries": [
     {
       "id": "d1gam0ah",
       "name": "EASM Integration",
-      "category": "automacao",
+      "categoryId": "10",
+      "categoryName": "Other Projects",
       "start": "2026-06-19",
       "end": "2026-07-31",
       "link": "https://teams.cloud.microsoft/l/channel/19%3APD9v2Cex4EWOrNgBDsyPXUUt0TYeovZ11tR3mWkm8IQ1%40thread.tacv2/EASM%20Integration?groupId=ef3b52f4-6f1e-480f-b9f8-df10f61989d4&tenantId=ccf6dc4a-9fe9-4c20-85a6-46d2709e8435",

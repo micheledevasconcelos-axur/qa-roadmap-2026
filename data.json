@@ -92,6 +92,35 @@
       "owners": [
         "BD"
       ]
+    },
+    {
+      "id": "d7cvglcp",
+      "name": "Axur Scrappy Bridge EU Deployment",
+      "categoryId": "10",
+      "categoryName": "Other Projects",
+      "start": "2026-06-18",
+      "end": "2026-07-17",
+      "link": "https://teams.cloud.microsoft/l/channel/19%3AI7o6Lw6_2HEl2QCmgi5bru2lL-6AYXhcGteTKWhJ_281%40thread.tacv2/Axur%20Scrappy%20Bridge%20EU%20Deployment?groupId=ab33c3a0-dd69-49d3-87e9-5b6ffe5fb569&tenantId=ccf6dc4a-9fe9-4c20-85a6-46d2709e8435&ngc=true",
+      "status": [],
+      "owners": [
+        "BD",
+        "MF"
+      ]
+    },
+    {
+      "id": "drnqkcdn",
+      "name": "Migrate VIP DW data collection to the data hub",
+      "categoryId": "4",
+      "categoryName": "Executives & VIPs",
+      "start": "2026-06-22",
+      "end": "2026-07-16",
+      "link": "https://teams.cloud.microsoft/l/channel/19%3Af4a1390c50344125bb978f2ac08ac66c%40thread.tacv2/proj-VIPs-07eEvAPD-deep-search-to-datahub-VIPs?groupId=db64aaa6-f879-4940-9c79-71f4e57c2098&tenantId=ccf6dc4a-9fe9-4c20-85a6-46d2709e8435",
+      "status": [
+        "published"
+      ],
+      "owners": [
+        "MF"
+      ]
     }
   ]
 }

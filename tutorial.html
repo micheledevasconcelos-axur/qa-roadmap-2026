@@ -170,6 +170,48 @@
     🔁 <b>Quando o token vencer</b> (fim de dezembro, se você seguiu o passo 3), o botão "Salvar no GitHub" vai mostrar um erro de token inválido. Basta repetir estes passos para gerar um novo token e clicar em <b>🔑 Trocar / desconectar token</b> na aba Sincronização para reconectar.
   </div>
 
+  <hr class="divider">
+
+  <h1 style="font-size:19px">❓ "Meu repositório não aparece em Resource owner"</h1>
+  <p style="font-size:13.5px;color:var(--ink);line-height:1.55">
+    Isso é uma <b>limitação conhecida do GitHub</b>, não um erro seu. O campo <b>Resource owner</b>, na tela de criação do token fine-grained, só lista a sua própria conta pessoal e organizações às quais você pertence. Se o repositório está na conta pessoal de outra pessoa (não numa organização) e você é apenas colaborador(a) — não dono(a) — o GitHub não oferece essa conta como opção. Tokens fine-grained simplesmente não suportam esse cenário ainda.
+  </p>
+  <p style="font-size:13.5px;color:var(--ink);line-height:1.55">
+    A solução é usar um <b>token clássico (classic)</b> em vez de fine-grained. Funciona exatamente igual dentro do roadmap — a página não precisa de nenhum ajuste.
+  </p>
+
+  <div class="step">
+    <div class="step-num">A</div>
+    <div class="step-body">
+      <h2>Gere um token clássico</h2>
+      <p>GitHub → foto de perfil → <b>Settings → Developer settings → Personal access tokens → Tokens (classic)</b> → <b>Generate new token → Generate new token (classic)</b>.</p>
+      <a class="cta" href="https://github.com/settings/tokens/new" target="_blank">🔗 Abrir criação de token clássico</a>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">B</div>
+    <div class="step-body">
+      <h2>Nome, validade e escopo</h2>
+      <p>Dê um nome (ex: <code>QA Roadmap</code>) e defina a validade até o fim de dezembro, igual ao token fine-grained. Em <b>Select scopes</b>, marque a caixa <b>repo</b> (Full control of private repositories) — tokens clássicos não têm um escopo "só este repositório", então <code>repo</code> é o mais restrito disponível para conseguir salvar.</p>
+      <svg class="mock" viewBox="0 0 700 90" xmlns="http://www.w3.org/2000/svg">
+        <rect width="700" height="90" fill="#ffffff"/>
+        <rect x="24" y="20" width="16" height="16" rx="3" fill="#0969DA"/>
+        <text x="50" y="33" font-family="Segoe UI" font-size="13" font-weight="bold" fill="#24292F">repo</text>
+        <text x="50" y="50" font-family="Segoe UI" font-size="11" fill="#57606A">Full control of private repositories</text>
+      </svg>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">C</div>
+    <div class="step-body">
+      <h2>Gere, copie e cole no roadmap</h2>
+      <p>Clique <b>Generate token</b>, copie o valor (aparece só uma vez) e cole no roadmap do mesmo jeito: <b>✏️ Editar roadmap → aba Sincronização → Salvar no GitHub</b>.</p>
+    </div>
+  </div>
+  <div class="warn-box">
+    ⚠️ Um token clássico com escopo <code>repo</code> dá acesso a <b>todos</b> os repositórios privados que essa pessoa tem acesso, não só a este. É a única forma de contornar a limitação atual do GitHub para colaboradores externos — se isso for uma preocupação, considere mover o repositório para uma <b>Organização do GitHub</b> e adicionar as QAs como membros: nesse caso, o token fine-grained volta a funcionar normalmente, porque a organização passa a aparecer em Resource owner.
+  </div>
+
   <p class="back-link"><a href="index.html">← Voltar para o roadmap</a></p>
 </div>
 </body>

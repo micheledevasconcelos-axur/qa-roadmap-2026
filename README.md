@@ -53,6 +53,8 @@ Basta abrir o link do GitHub Pages. O roadmap carrega os dados mais recentes de 
 
 Cada pessoa que for editar conecta o próprio token, uma vez, no próprio navegador. Quem só visualiza não precisa de nada.
 
+> **Se o repositório está na sua conta pessoal** (não numa organização), colegas que sejam apenas colaboradores — não donos — vão notar que o repositório não aparece em "Resource owner" ao criar um token fine-grained. Isso é uma limitação conhecida do GitHub para colaboradores externos, não um erro de configuração. O `tutorial.html` explica a alternativa: gerar um **token clássico** com escopo `repo`, que funciona igual dentro do roadmap.
+
 ## Conflitos de edição simultânea
 
 Se duas pessoas salvarem quase ao mesmo tempo, a segunda tentativa é rejeitada pela API do GitHub (em vez de sobrescrever silenciosamente). A página avisa para clicar em **Atualizar**, refazer a mudança e salvar novamente.

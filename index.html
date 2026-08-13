@@ -810,7 +810,6 @@ document.getElementById("openEditor").addEventListener("click", ()=>{
   showTab("deliveries");
 });
 document.getElementById("closeDrawer").addEventListener("click", ()=> document.getElementById("overlay").classList.remove("open"));
-document.getElementById("overlay").addEventListener("click", (e)=>{ if(e.target.id==="overlay") document.getElementById("overlay").classList.remove("open"); });
 
 document.getElementById("tabDeliveries").addEventListener("click", ()=> showTab("deliveries"));
 document.getElementById("tabCategories").addEventListener("click", ()=> showTab("categories"));

@@ -121,6 +121,19 @@
       "owners": [
         "MF"
       ]
+    },
+    {
+      "id": "dq6fippd",
+      "name": "threat scan",
+      "categoryId": "4",
+      "categoryName": "Executives & VIPs",
+      "start": "2026-08-10",
+      "end": "2026-08-17",
+      "link": "",
+      "status": [],
+      "owners": [
+        "BD"
+      ]
     }
   ]
 }

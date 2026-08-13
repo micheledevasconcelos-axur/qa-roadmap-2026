@@ -1,0 +1,175 @@
+[
+  {
+    "id": "d12",
+    "name": "URLs & Domains para os tickets de Phishing",
+    "category": "Digital Fraud & Online Piracy",
+    "start": "2025-11-05",
+    "end": "2025-11-28",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "CF"
+    ]
+  },
+  {
+    "id": "d1",
+    "name": "Gestão de assets",
+    "category": "Cyber Threat Intelligence",
+    "start": "2025-11-10",
+    "end": "2025-11-21",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "MC"
+    ]
+  },
+  {
+    "id": "d2",
+    "name": "Domain Asset Management - V3",
+    "category": "Stage & Scalability",
+    "start": "2025-11-11",
+    "end": "2025-12-11",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "JS"
+    ]
+  },
+  {
+    "id": "d3",
+    "name": "Supply Chain Intel - Milestone 1",
+    "category": "New Revenue",
+    "start": "2025-11-18",
+    "end": "2025-12-15",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "AB",
+      "LR"
+    ]
+  },
+  {
+    "id": "d5",
+    "name": "Inclusão da fonte Meta Ads Library nos bots",
+    "category": "Data Leakage",
+    "start": "2025-11-26",
+    "end": "2025-12-11",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "CF"
+    ]
+  },
+  {
+    "id": "d6",
+    "name": "Migração da área de credenciais para o xDS",
+    "category": "Data Leakage",
+    "start": "2025-11-27",
+    "end": "2025-12-12",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "MC"
+    ]
+  },
+  {
+    "id": "d7",
+    "name": "Alterar período de faturamento de MSSP",
+    "category": "Stage & Scalability",
+    "start": "2025-12-04",
+    "end": "2025-12-30",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "JS"
+    ]
+  },
+  {
+    "id": "d8",
+    "name": "Controle de update em lote por usuário",
+    "category": "Data Leakage",
+    "start": "2025-12-09",
+    "end": "2025-12-29",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published",
+      "homolog"
+    ],
+    "owners": [
+      "AB",
+      "CF"
+    ]
+  },
+  {
+    "id": "d4",
+    "name": "Supply Chain Intel - Milestone 2",
+    "category": "New Revenue",
+    "start": "2025-12-16",
+    "end": "2026-01-15",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "LR",
+      "TS"
+    ]
+  },
+  {
+    "id": "d11",
+    "name": "Cartões na plataforma",
+    "category": "Data Leakage",
+    "start": "2025-12-17",
+    "end": "2026-01-12",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "LR",
+      "MC"
+    ]
+  },
+  {
+    "id": "d9",
+    "name": "Gestão de Assets: Migração de IPs de DW",
+    "category": "Cyber Threat Intelligence",
+    "start": "2025-12-22",
+    "end": "2026-01-09",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "homolog"
+    ],
+    "owners": [
+      "MC"
+    ]
+  },
+  {
+    "id": "d10",
+    "name": "Brand Asset Management - V1",
+    "category": "Cyber Threat Intelligence",
+    "start": "2025-12-29",
+    "end": "2026-01-20",
+    "link": "https://teams.microsoft.com/",
+    "status": [
+      "published"
+    ],
+    "owners": [
+      "TS"
+    ]
+  }
+]

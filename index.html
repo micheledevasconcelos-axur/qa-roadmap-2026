@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>QA Delivery Roadmap</title>
+<style>
+  :root{
+    --blue-dark:#2F6FE0;
+    --blue-mid:#4E9EF5;
+    --blue-light:#EAF3FC;
+    --ink:#1F2430;
+    --sub:#5B6472;
+    --border:#D7E3F0;
+    --page:#F3F6FB;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; font-family:"Segoe UI",Helvetica,Arial,sans-serif; background:var(--page); color:var(--ink); }
+
+  /* ---------- Top bar ---------- */
+  .topbar{ display:flex; justify-content:space-between; align-items:center; padding:16px 24px; background:#fff; border-bottom:1px solid var(--border); gap:16px; flex-wrap:wrap; }
+  .topbar h1{ font-size:18px; margin:0; font-weight:700; }
+  .topbar p{ margin:2px 0 0; font-size:12px; color:var(--sub); }
+  .topbar-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  .btn{ border:none; border-radius:8px; padding:9px 14px; font-size:13px; font-weight:600; cursor:pointer; }
+  .btn-primary{ background:var(--blue-dark); color:#fff; }
+  .btn-primary:hover{ background:#245ac2; }
+  .btn-ghost{ background:#fff; color:var(--ink); border:1px solid #C9D3DF; }
+  .btn-ghost:hover{ background:#F3F6FB; }
+  .btn-danger{ background:#fff; color:#C0392B; border:1px solid #E6B3AC; }
+  .btn-danger:hover{ background:#FBEAE8; }
+  input[type=file]{ display:none; }
+
+  /* ---------- Legend ---------- */
+  .legend{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:14px 24px; background:#fff; border-bottom:1px solid var(--border); }
+  .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px; font-size:12.5px; font-weight:600; white-space:nowrap; }
+  .pill.tag-label{ background:var(--blue-dark); color:#fff; font-weight:700; }
+  .legend-sep{ width:1px; height:24px; background:var(--border); margin:0 6px; }
+  .status-pill{ background:#fff; border:1px solid #C9D3DF; color:var(--ink); }
+  .half-icon{ width:14px;height:14px;border-radius:50%; background:conic-gradient(#F5A623 0deg 180deg, #fff 180deg 360deg); border:1px solid #C9D3DF; display:inline-block; }
+
+  /* ---------- Timeline ---------- */
+  .scroll-wrap{ overflow-x:auto; padding-bottom:40px; }
+  .timeline{ position:relative; min-width:max-content; }
+  .month-row, .week-row{ display:flex; position:sticky; z-index:5; }
+  .month-row{ top:0; }
+  .week-row{ top:38px; }
+  .month-cell{ background:var(--blue-mid); color:#fff; font-weight:700; font-size:15px; text-align:center; padding:9px 0; border-right:1px solid rgba(255,255,255,0.35); }
+  .week-cell{ background:var(--blue-light); color:var(--ink); font-size:12.5px; font-weight:600; text-align:center; padding:8px 0; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .rows{ position:relative; }
+  .grid-lines{ position:absolute; top:0; left:0; bottom:0; display:flex; z-index:0; }
+  .grid-line{ border-right:1px solid #E3EAF3; }
+  .row{ position:relative; height:74px; }
+  .bar{ position:absolute; top:8px; height:58px; border-radius:10px; padding:8px 12px; display:flex; flex-direction:column; justify-content:center; gap:2px; box-shadow:0 1px 2px rgba(0,0,0,0.08); overflow:hidden; }
+  .bar .dates{ font-size:11px; opacity:0.85; font-weight:600; }
+  .bar .title-row{ display:flex; align-items:center; gap:8px; }
+  .bar a{ font-size:13.5px; font-weight:700; text-decoration:underline; color:inherit; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bar .icons{ margin-left:auto; display:flex; align-items:center; gap:5px; flex-shrink:0; }
+  .avatar{ width:24px;height:24px; border-radius:50%; display:flex;align-items:center;justify-content:center; font-size:10px;font-weight:700;color:#fff; border:2px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,0.15); flex-shrink:0; }
+  .avatars{ display:flex; }
+  .avatars .avatar:not(:first-child){ margin-left:-8px; }
+  .empty-state{ margin:60px auto; text-align:center; color:var(--sub); max-width:360px; }
+  .empty-state .btn{ margin-top:14px; }
+
+  /* ---------- Edit drawer ---------- */
+  .overlay{ position:fixed; inset:0; background:rgba(20,25,35,0.45); display:none; align-items:flex-start; justify-content:flex-end; z-index:50; }
+  .overlay.open{ display:flex; }
+  .drawer{ background:#fff; width:420px; max-width:92vw; height:100vh; overflow-y:auto; box-shadow:-8px 0 24px rgba(0,0,0,0.15); padding:22px; }
+  .drawer h2{ margin:0 0 4px; font-size:17px; }
+  .drawer .drawer-sub{ font-size:12px; color:var(--sub); margin-bottom:16px; }
+  .drawer-close{ float:right; background:none; border:none; font-size:20px; cursor:pointer; color:var(--sub); }
+  .list-item{ border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-bottom:8px; display:flex; align-items:center; gap:10px; }
+  .list-item .swatch{ width:10px; height:32px; border-radius:4px; flex-shrink:0; }
+  .list-item .info{ flex:1; min-width:0; }
+  .list-item .info .n{ font-weight:700; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .list-item .info .d{ font-size:11.5px; color:var(--sub); }
+  .list-item .actions{ display:flex; gap:6px; flex-shrink:0; }
+  .icon-btn{ border:1px solid #C9D3DF; background:#fff; border-radius:6px; width:28px; height:28px; cursor:pointer; font-size:13px; }
+  .icon-btn:hover{ background:#F3F6FB; }
+
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:12px; font-weight:700; margin-bottom:4px; color:var(--sub); }
+  .field input[type=text], .field input[type=date], .field input[type=url], .field select{
+    width:100%; padding:8px 10px; border:1px solid #C9D3DF; border-radius:7px; font-size:13px; font-family:inherit;
+  }
+  .field-row{ display:flex; gap:10px; }
+  .field-row .field{ flex:1; }
+  .checks{ display:flex; gap:14px; }
+  .checks label{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:500; color:var(--ink); }
+  .form-actions{ display:flex; gap:8px; margin-top:18px; }
+  .divider{ border:none; border-top:1px solid var(--border); margin:18px 0; }
+  .top-actions-row{ display:flex; gap:8px; margin-bottom:14px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>QA Delivery Roadmap</h1>
+    <p>Editável direto pela página — sem tocar em código.</p>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-primary" id="openEditor">✏️ Editar entregas</button>
+  </div>
+</div>
+
+<div class="legend" id="legend"></div>
+
+<div class="scroll-wrap">
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<!-- ---------- Edit drawer ---------- -->
+<div class="overlay" id="overlay">
+  <div class="drawer">
+    <button class="drawer-close" id="closeDrawer">✕</button>
+    <h2 id="drawerTitle">Entregas</h2>
+    <div class="drawer-sub" id="drawerSub">Adicione, edite ou remova entregas do roadmap.</div>
+
+    <div id="listView">
+      <div class="top-actions-row">
+        <button class="btn btn-primary" id="newDeliveryBtn" style="flex:1">+ Nova entrega</button>
+      </div>
+      <div id="deliveryList"></div>
+      <hr class="divider">
+      <div id="ghStatus" class="drawer-sub" style="margin-bottom:10px"></div>
+
+      <div id="tokenPanel" style="display:none">
+        <div class="field">
+          <label>Token do GitHub (necessário só para salvar)</label>
+          <input type="password" id="ghTokenInput" placeholder="ghp_... ou github_pat_...">
+        </div>
+        <div class="drawer-sub" style="margin-bottom:10px">
+          Gere em GitHub → Settings → Developer settings → Fine-grained tokens → "This repository only" → permissão <b>Contents: Read and write</b>. Fica salvo só neste navegador.
+        </div>
+        <div class="top-actions-row">
+          <button class="btn btn-primary" id="ghTokenSaveBtn" style="flex:1">Conectar</button>
+          <button class="btn btn-ghost" id="ghTokenCancelBtn">Cancelar</button>
+        </div>
+        <hr class="divider">
+      </div>
+
+      <div class="top-actions-row">
+        <button class="btn btn-ghost" id="refreshBtn" style="flex:1">🔄 Atualizar</button>
+        <button class="btn btn-primary" id="saveFileBtn" style="flex:1">💾 Salvar no GitHub</button>
+      </div>
+      <button class="btn btn-ghost" id="relinkBtn" style="width:100%;margin-top:8px">🔑 Trocar / desconectar token</button>
+      <button class="btn btn-ghost" id="backupBtn" style="width:100%;margin-top:8px">⬇ Baixar backup local (.json)</button>
+      <hr class="divider">
+      <button class="btn btn-danger" id="resetBtn" style="width:100%">Restaurar exemplo original</button>
+    </div>
+
+    <div id="formView" style="display:none">
+      <div class="field">
+        <label>Nome da entrega</label>
+        <input type="text" id="f_name">
+      </div>
+      <div class="field">
+        <label>Categoria</label>
+        <select id="f_category"></select>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Início</label>
+          <input type="date" id="f_start">
+        </div>
+        <div class="field">
+          <label>Fim</label>
+          <input type="date" id="f_end">
+        </div>
+      </div>
+      <div class="field">
+        <label>Link do canal MS Teams</label>
+        <input type="url" id="f_link" placeholder="https://teams.microsoft.com/...">
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <div class="checks">
+          <label><input type="checkbox" id="f_published"> Publicação em #update-deliveries</label>
+          <label><input type="checkbox" id="f_homolog"> Homologação fora do lifecycle</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Responsáveis (iniciais, separadas por vírgula)</label>
+        <input type="text" id="f_owners" placeholder="ex: AB, CD">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="saveBtn" style="flex:1">Salvar</button>
+        <button class="btn btn-ghost" id="cancelBtn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   CATEGORIES — colors match the QA team's existing Figma legend.
+========================================================================= */
+const CATEGORIES = {
+  "Cyber Threat Intelligence":        { bg:"#BFE0F7", fg:"#1B4965" },
+  "Data Leakage":                     { bg:"#6E6E6E", fg:"#FFFFFF" },
+  "Digital Fraud & Online Piracy":    { bg:"#D6D6D6", fg:"#333333" },
+  "Executives & VIPs":                { bg:"#F6D2A8", fg:"#7A4A12" },
+  "New Revenue":                      { bg:"#D5C7F0", fg:"#4B2E83" },
+  "Stage & Scalability":              { bg:"#C6EAC0", fg:"#2C5E27" },
+  "Takedown":                         { bg:"#B9F0E8", fg:"#146B62" },
+  "Threat Hunting & Investigations":  { bg:"#F5C6E0", fg:"#7A2C57" },
+  "[Deprecated] Fraud Intelligence":  { bg:"#F2B6AA", fg:"#7A2E1F" },
+  "Automação":                        { bg:"#E8491D", fg:"#FFFFFF" },
+};
+const OWNER_COLORS = ["#4E9EF5","#9B59B6","#E67E22","#16A085","#E74C3C","#2C3E50","#D35400","#27AE60","#8E44AD","#2980B9"];
+const STORAGE_KEY = "qa_roadmap_data_v1";
+
+const DEFAULT_DATA = [
+  { id:"d1", name:"Gestão de assets", category:"Cyber Threat Intelligence", start:"2025-11-10", end:"2025-11-21", link:"https://teams.microsoft.com/", status:["published"], owners:["MC"] },
+  { id:"d2", name:"Domain Asset Management - V3", category:"Stage & Scalability", start:"2025-11-11", end:"2025-12-11", link:"https://teams.microsoft.com/", status:["published"], owners:["JS"] },
+  { id:"d3", name:"Supply Chain Intel - Milestone 1", category:"New Revenue", start:"2025-11-18", end:"2025-12-15", link:"https://teams.microsoft.com/", status:["published"], owners:["AB","LR"] },
+  { id:"d4", name:"Supply Chain Intel - Milestone 2", category:"New Revenue", start:"2025-12-16", end:"2026-01-15", link:"https://teams.microsoft.com/", status:["published"], owners:["LR","TS"] },
+  { id:"d5", name:"Inclusão da fonte Meta Ads Library nos bots", category:"Data Leakage", start:"2025-11-26", end:"2025-12-11", link:"https://teams.microsoft.com/", status:["published"], owners:["CF"] },
+  { id:"d6", name:"Migração da área de credenciais para o xDS", category:"Data Leakage", start:"2025-11-27", end:"2025-12-12", link:"https://teams.microsoft.com/", status:["published"], owners:["MC"] },
+  { id:"d7", name:"Alterar período de faturamento de MSSP", category:"Stage & Scalability", start:"2025-12-04", end:"2025-12-30", link:"https://teams.microsoft.com/", status:["published"], owners:["JS"] },
+  { id:"d8", name:"Controle de update em lote por usuário", category:"Data Leakage", start:"2025-12-09", end:"2025-12-29", link:"https://teams.microsoft.com/", status:["published","homolog"], owners:["AB","CF"] },
+  { id:"d9", name:"Gestão de Assets: Migração de IPs de DW", category:"Cyber Threat Intelligence", start:"2025-12-22", end:"2026-01-09", link:"https://teams.microsoft.com/", status:["homolog"], owners:["MC"] },
+  { id:"d10", name:"Brand Asset Management - V1", category:"Cyber Threat Intelligence", start:"2025-12-29", end:"2026-01-20", link:"https://teams.microsoft.com/", status:["published"], owners:["TS"] },
+  { id:"d11", name:"Cartões na plataforma", category:"Data Leakage", start:"2025-12-17", end:"2026-01-12", link:"https://teams.microsoft.com/", status:["published"], owners:["LR","MC"] },
+  { id:"d12", name:"URLs & Domains para os tickets de Phishing", category:"Digital Fraud & Online Piracy", start:"2025-11-05", end:"2025-11-28", link:"https://teams.microsoft.com/", status:["published"], owners:["CF"] },
+];
+
+let deliveries = loadData();
+sortDeliveries();
+let editingId = null;
+
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){ console.warn("Could not read saved data, using default.", e); }
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+function saveData(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(deliveries));
+}
+function uid(){ return "d" + Math.random().toString(36).slice(2,9); }
+function sortDeliveries(){
+  deliveries.sort((a,b)=> a.start === b.start ? a.name.localeCompare(b.name) : a.start.localeCompare(b.start));
+}
+
+/* ---------------- date helpers ---------------- */
+const DAY_MS = 86400000, DAY_W = 26, WEEK_W = DAY_W*7, ROW_H = 74;
+function parseDate(s){ const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); }
+function fmt(d){ return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0"); }
+function mondayOf(d){ const dt=new Date(d); const wd=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-wd); return dt; }
+function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt; }
+function diffDays(a,b){ return Math.round((b-a)/DAY_MS); }
+
+/* ---------------- legend ---------------- */
+function renderLegend(){
+  document.getElementById("legend").innerHTML =
+    `<span class="pill tag-label">Legenda:</span>` +
+    Object.entries(CATEGORIES).map(([name,c])=>`<span class="pill" style="background:${c.bg};color:${c.fg}">${name}</span>`).join("") +
+    `<span class="legend-sep"></span>` +
+    `<span class="pill status-pill">👍 Publicação em #update-deliveries</span>` +
+    `<span class="pill status-pill"><span class="half-icon"></span> Homologação fora do lifecycle</span>`;
+}
+
+/* ---------------- timeline ---------------- */
+const ownerColorMap = {};
+let colorIdx = 0;
+function colorFor(initials){
+  if(!ownerColorMap[initials]){ ownerColorMap[initials] = OWNER_COLORS[colorIdx % OWNER_COLORS.length]; colorIdx++; }
+  return ownerColorMap[initials];
+}
+
+function renderTimeline(){
+  const el = document.getElementById("timeline");
+  if(deliveries.length === 0){
+    el.innerHTML = `<div class="empty-state">
+      <div style="font-size:32px">🗓️</div>
+      <p>Nenhuma entrega cadastrada ainda.</p>
+      <button class="btn btn-primary" onclick="document.getElementById('openEditor').click()">+ Adicionar primeira entrega</button>
+    </div>`;
+    return;
+  }
+  const starts = deliveries.map(d=>parseDate(d.start));
+  const ends   = deliveries.map(d=>parseDate(d.end));
+  const timelineStart = mondayOf(new Date(Math.min(...starts)));
+  const rawEnd = new Date(Math.max(...ends));
+  let timelineEnd = addDays(mondayOf(rawEnd),6);
+  if(timelineEnd < rawEnd) timelineEnd = addDays(timelineEnd,7);
+  const totalWeeks = Math.max(1, Math.ceil(diffDays(timelineStart,timelineEnd)/7));
+
+  const weeks = [];
+  for(let i=0;i<totalWeeks;i++){ const mon=addDays(timelineStart,i*7); weeks.push({mon,fri:addDays(mon,4)}); }
+  const monthGroups = [];
+  weeks.forEach(w=>{
+    const label = w.mon.toLocaleString("pt-BR",{month:"long"});
+    const last = monthGroups[monthGroups.length-1];
+    if(last && last.label===label) last.count++; else monthGroups.push({label,count:1});
+  });
+  const totalWidth = totalWeeks*WEEK_W;
+
+  let monthRowHtml = `<div class="month-row" style="width:${totalWidth}px">`;
+  monthGroups.forEach(g=>{ monthRowHtml += `<div class="month-cell" style="width:${g.count*WEEK_W}px">${g.label.charAt(0).toUpperCase()+g.label.slice(1)}</div>`; });
+  monthRowHtml += `</div>`;
+
+  let weekRowHtml = `<div class="week-row" style="width:${totalWidth}px">`;
+  weeks.forEach(w=>{ weekRowHtml += `<div class="week-cell" style="width:${WEEK_W}px">${fmt(w.mon)} - ${fmt(w.fri)}</div>`; });
+  weekRowHtml += `</div>`;
+
+  let gridHtml = `<div class="grid-lines" style="width:${totalWidth}px;height:${deliveries.length*ROW_H}px">`;
+  weeks.forEach(()=>{ gridHtml += `<div class="grid-line" style="width:${WEEK_W}px"></div>`; });
+  gridHtml += `</div>`;
+
+  let rowsHtml = `<div class="rows" style="width:${totalWidth}px;height:${deliveries.length*ROW_H}px">` + gridHtml;
+  deliveries.forEach((d,i)=>{
+    const cat = CATEGORIES[d.category] || {bg:"#ccc",fg:"#333"};
+    const s = parseDate(d.start), e = parseDate(d.end);
+    const left = diffDays(timelineStart,s)*DAY_W;
+    const width = (diffDays(s,e)+1)*DAY_W;
+    const avatars = (d.owners||[]).map(o=>`<div class="avatar" style="background:${colorFor(o)}" title="${o}">${o}</div>`).join("");
+    let icons = "";
+    if((d.status||[]).includes("published")) icons += "👍";
+    if((d.status||[]).includes("homolog")) icons += `<span class="half-icon" style="width:16px;height:16px;margin-left:2px"></span>`;
+    rowsHtml += `
+      <div class="row" style="position:absolute;top:${i*ROW_H}px;left:0;width:${totalWidth}px;height:${ROW_H}px">
+        <div class="bar" style="left:${left}px;width:${width}px;background:${cat.bg};color:${cat.fg}">
+          <div class="dates">${fmt(s)} - ${fmt(e)}</div>
+          <div class="title-row">
+            <a href="${d.link||'#'}" target="_blank" rel="noopener">${d.name}</a>
+            <div class="icons">${icons}</div>
+            <div class="avatars">${avatars}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+  rowsHtml += `</div>`;
+  el.innerHTML = monthRowHtml + weekRowHtml + rowsHtml;
+}
+
+function renderAll(){ renderLegend(); renderTimeline(); renderDeliveryList(); }
+
+/* ---------------- edit drawer: list view ---------------- */
+function renderDeliveryList(){
+  const listEl = document.getElementById("deliveryList");
+  if(deliveries.length === 0){
+    listEl.innerHTML = `<div class="drawer-sub">Nenhuma entrega cadastrada.</div>`;
+    return;
+  }
+  listEl.innerHTML = deliveries.map(d=>{
+    const cat = CATEGORIES[d.category] || {bg:"#ccc"};
+    return `<div class="list-item">
+      <div class="swatch" style="background:${cat.bg}"></div>
+      <div class="info">
+        <div class="n">${d.name}</div>
+        <div class="d">${fmt(parseDate(d.start))} - ${fmt(parseDate(d.end))} · ${d.category}</div>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" title="Editar" onclick="openForm('${d.id}')">✏️</button>
+        <button class="icon-btn" title="Excluir" onclick="deleteDelivery('${d.id}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ---------------- form view ---------------- */
+function populateCategorySelect(){
+  const sel = document.getElementById("f_category");
+  sel.innerHTML = Object.keys(CATEGORIES).map(c=>`<option value="${c}">${c}</option>`).join("");
+}
+
+function openForm(id){
+  editingId = id || null;
+  document.getElementById("listView").style.display = "none";
+  document.getElementById("formView").style.display = "block";
+  document.getElementById("drawerTitle").textContent = id ? "Editar entrega" : "Nova entrega";
+  if(id){
+    const d = deliveries.find(x=>x.id===id);
+    document.getElementById("f_name").value = d.name;
+    document.getElementById("f_category").value = d.category;
+    document.getElementById("f_start").value = d.start;
+    document.getElementById("f_end").value = d.end;
+    document.getElementById("f_link").value = d.link || "";
+    document.getElementById("f_published").checked = (d.status||[]).includes("published");
+    document.getElementById("f_homolog").checked = (d.status||[]).includes("homolog");
+    document.getElementById("f_owners").value = (d.owners||[]).join(", ");
+  } else {
+    document.getElementById("f_name").value = "";
+    document.getElementById("f_category").value = Object.keys(CATEGORIES)[0];
+    document.getElementById("f_start").value = "";
+    document.getElementById("f_end").value = "";
+    document.getElementById("f_link").value = "";
+    document.getElementById("f_published").checked = false;
+    document.getElementById("f_homolog").checked = false;
+    document.getElementById("f_owners").value = "";
+  }
+}
+function closeForm(){
+  document.getElementById("formView").style.display = "none";
+  document.getElementById("listView").style.display = "block";
+  document.getElementById("drawerTitle").textContent = "Entregas";
+  editingId = null;
+}
+function saveForm(){
+  const name = document.getElementById("f_name").value.trim();
+  const start = document.getElementById("f_start").value;
+  const end = document.getElementById("f_end").value;
+  if(!name || !start || !end){ alert("Preencha nome, data de início e data de fim."); return; }
+  if(end < start){ alert("A data de fim não pode ser antes da data de início."); return; }
+  const owners = document.getElementById("f_owners").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean);
+  const status = [];
+  if(document.getElementById("f_published").checked) status.push("published");
+  if(document.getElementById("f_homolog").checked) status.push("homolog");
+  const record = {
+    id: editingId || uid(),
+    name,
+    category: document.getElementById("f_category").value,
+    start, end,
+    link: document.getElementById("f_link").value.trim(),
+    status, owners
+  };
+  if(editingId){
+    deliveries = deliveries.map(d=>d.id===editingId ? record : d);
+  } else {
+    deliveries.push(record);
+  }
+  sortDeliveries();
+  saveData();
+  closeForm();
+  renderAll();
+}
+function deleteDelivery(id){
+  if(!confirm("Remover esta entrega do roadmap?")) return;
+  deliveries = deliveries.filter(d=>d.id!==id);
+  saveData();
+  renderAll();
+}
+
+/* ---------------- GitHub sync ---------------- */
+/* Auto-detect owner/repo when running on GitHub Pages (https://OWNER.github.io/REPO/...).
+   If you're testing locally, edit the two fallback values below. */
+const isGhPages = location.hostname.endsWith(".github.io");
+const pathParts = location.pathname.split("/").filter(Boolean);
+const GITHUB_OWNER = isGhPages ? location.hostname.split(".")[0] : "SEU_USUARIO";
+const GITHUB_REPO  = isGhPages ? (pathParts[0] || (GITHUB_OWNER + ".github.io")) : "SEU_REPOSITORIO";
+const GITHUB_BRANCH = "main";
+const DATA_PATH = "data.json";
+const GITHUB_API = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_PATH}`;
+const TOKEN_KEY = "qa_roadmap_gh_token";
+
+let ghToken = localStorage.getItem(TOKEN_KEY) || null;
+let currentSha = null;
+
+function utf8ToBase64(str){
+  const bytes = new TextEncoder().encode(str);
+  let binary = "";
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+function base64ToUtf8(b64){
+  const binary = atob(b64.replace(/\n/g,""));
+  const bytes = new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function renderGhStatus(msg){
+  const el = document.getElementById("ghStatus");
+  const repoLabel = `${GITHUB_OWNER}/${GITHUB_REPO}`;
+  const tokenLabel = ghToken ? "🔑 token conectado" : "👀 modo somente leitura (sem token)";
+  el.innerHTML = `🌐 Repositório: <b>${repoLabel}</b> · ${tokenLabel}` + (msg ? `<br>${msg}` : "");
+}
+
+async function loadFromGitHub(silent){
+  try{
+    const headers = ghToken ? { Authorization: "token " + ghToken } : {};
+    const res = await fetch(GITHUB_API + "?ref=" + GITHUB_BRANCH, { headers });
+    if(res.status === 404){
+      currentSha = null;
+      renderGhStatus("Ainda não existe data.json neste repositório — use Salvar para criá-lo.");
+      return;
+    }
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const json = await res.json();
+    currentSha = json.sha;
+    const text = base64ToUtf8(json.content);
+    const parsed = JSON.parse(text);
+    if(!Array.isArray(parsed)) throw new Error("data.json não contém uma lista de entregas");
+    deliveries = parsed.map(d=>({...d, id:d.id||uid()}));
+    sortDeliveries();
+    saveData();
+    renderAll();
+    renderGhStatus("Atualizado agora · " + new Date().toLocaleTimeString("pt-BR"));
+  }catch(e){
+    renderGhStatus(silent ? "Não foi possível carregar do GitHub automaticamente (normal se estiver testando localmente)." : ("Erro ao atualizar: " + e.message));
+    if(!silent) alert("Não foi possível buscar o data.json do GitHub: " + e.message);
+  }
+}
+
+async function saveToGitHub(){
+  if(!ghToken){ openTokenPanel(); return; }
+  try{
+    const body = {
+      message: "Atualiza roadmap (" + new Date().toLocaleString("pt-BR") + ")",
+      content: utf8ToBase64(JSON.stringify(deliveries, null, 2)),
+      branch: GITHUB_BRANCH
+    };
+    if(currentSha) body.sha = currentSha;
+    const res = await fetch(GITHUB_API, {
+      method: "PUT",
+      headers: { Authorization: "token " + ghToken, "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    const json = await res.json();
+    if(!res.ok){
+      if(res.status === 409 || res.status === 422){
+        alert("Alguém salvou uma versão mais nova enquanto você editava. Clique em Atualizar, refaça sua mudança e salve de novo.");
+      } else if(res.status === 401){
+        alert("Token inválido ou expirado. Clique em 'Trocar / desconectar token' para reconectar.");
+      } else {
+        alert("Não foi possível salvar no GitHub: " + (json.message || res.status));
+      }
+      return;
+    }
+    currentSha = json.content.sha;
+    renderGhStatus("Salvo no GitHub agora · pode levar até 1 min para o site publicado atualizar.");
+  }catch(e){
+    alert("Não foi possível salvar no GitHub: " + e.message);
+  }
+}
+
+function openTokenPanel(){
+  document.getElementById("tokenPanel").style.display = "block";
+  document.getElementById("ghTokenInput").value = "";
+  document.getElementById("ghTokenInput").focus();
+}
+function closeTokenPanel(){ document.getElementById("tokenPanel").style.display = "none"; }
+function saveToken(){
+  const val = document.getElementById("ghTokenInput").value.trim();
+  if(!val){ alert("Cole um token válido."); return; }
+  ghToken = val;
+  localStorage.setItem(TOKEN_KEY, ghToken);
+  closeTokenPanel();
+  renderGhStatus("Token conectado neste navegador.");
+}
+function disconnectOrOpenToken(){
+  if(ghToken){
+    if(confirm("Desconectar o token de edição deste navegador?")){
+      ghToken = null;
+      localStorage.removeItem(TOKEN_KEY);
+      renderGhStatus("Token desconectado — modo somente leitura.");
+    }
+  } else {
+    openTokenPanel();
+  }
+}
+
+/* ---------------- manual local backup (safety net) ---------------- */
+function exportData(){
+  const blob = new Blob([JSON.stringify(deliveries,null,2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "qa_roadmap_backup.json";
+  a.click();
+}
+
+/* ---------------- wiring ---------------- */
+document.getElementById("openEditor").addEventListener("click", ()=>{
+  document.getElementById("overlay").classList.add("open");
+  closeForm();
+});
+document.getElementById("closeDrawer").addEventListener("click", ()=> document.getElementById("overlay").classList.remove("open"));
+document.getElementById("overlay").addEventListener("click", (e)=>{ if(e.target.id==="overlay") document.getElementById("overlay").classList.remove("open"); });
+document.getElementById("newDeliveryBtn").addEventListener("click", ()=> openForm(null));
+document.getElementById("saveBtn").addEventListener("click", saveForm);
+document.getElementById("cancelBtn").addEventListener("click", closeForm);
+document.getElementById("refreshBtn").addEventListener("click", ()=> loadFromGitHub(false));
+document.getElementById("saveFileBtn").addEventListener("click", saveToGitHub);
+document.getElementById("relinkBtn").addEventListener("click", disconnectOrOpenToken);
+document.getElementById("backupBtn").addEventListener("click", exportData);
+document.getElementById("ghTokenSaveBtn").addEventListener("click", saveToken);
+document.getElementById("ghTokenCancelBtn").addEventListener("click", closeTokenPanel);
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  if(!confirm("Isso vai substituir os dados atuais pelo exemplo original. Continuar?")) return;
+  deliveries = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  sortDeliveries();
+  saveData();
+  renderAll();
+});
+
+populateCategorySelect();
+renderAll();
+renderGhStatus();
+loadFromGitHub(true);
+</script>
+</body>
+</html>
